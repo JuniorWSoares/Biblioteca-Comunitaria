@@ -6,10 +6,10 @@ Projeto desenvolvido na disciplina de **Projeto de Desenvolvimento Web Back-End*
 ## Funcionalidades
 
 - Cadastro e gerenciamento de livros no acervo
+- Autenticação de usuarios
 - Registro e controle de doações
 - Consulta e busca de livros disponíveis
 - Interface amigável para bibliotecários e voluntários
-- Relatórios de doações e movimentação do acervo
 
 ## Tecnologias Utilizadas
 
