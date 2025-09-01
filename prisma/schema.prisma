@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Papel {
+  admin
+  voluntario
+}
+
+model Usuarios {
+  id        Int          @id @default(autoincrement())
+  nome      String
+  telefone  String?      @db.VarChar(20)
+  email     String       @unique
+  senha     String
+  papel     Papel
+
+  // Relações
+  exemplaresDoadados   Exemplares[] @relation("Doador")
+  exemplaresRecebidos  Exemplares[] @relation("Receptor")
+}
+
+model Livros {
+  id         Int          @id @default(autoincrement())
+  titulo     String
+  autor      String?
+  categoria  String?
+  foto_capa  String?
+  sinopse    String?
+  quantidade Int          @default(0)
+
+  // Relação
+  exemplares Exemplares[]
+}
+
+model Exemplares {
+  id            Int       @id @default(autoincrement())
+  data_doacao   DateTime? @db.Date
+  data_recepcao DateTime? @db.Date
+
+  id_doador     Int?
+  id_receptor   Int?
+  id_livro      Int
+
+  // Relações
+  doador    Usuarios? @relation("Doador", fields: [id_doador], references: [id], onDelete: SetNull)
+  receptor  Usuarios? @relation("Receptor", fields: [id_receptor], references: [id], onDelete: SetNull)
+  livro     Livros    @relation(fields: [id_livro], references: [id], onDelete: Cascade)
+}
