@@ -22,8 +22,8 @@ Projeto desenvolvido na disciplina de **Projeto de Desenvolvimento Web Back-End*
 
 ## Como Rodar o Projeto
 
-1. Clone o repositório:  
-Execute o projeto:
+1. Clone o repositório:
+   ```bash
    git clone git@github.com:JuniorWSoares/Biblioteca-Comunitaria.git
 
 2. Instale as dependências:
