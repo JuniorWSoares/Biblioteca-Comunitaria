@@ -1,5 +1,7 @@
-import express, { Request, Response }  from "express"
-import { PrismaClient } from "@prisma/client"
+import express from "express"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+import authRouter from "./routes/authRouter.js"
 
 const app = express()
 const prisma = new PrismaClient()
