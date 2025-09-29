@@ -4,13 +4,19 @@ import { fileURLToPath } from "node:url"
 import authRouter from "./routes/authRouter.js"
 
 const app = express()
-const prisma = new PrismaClient()
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views"))
+
+app.use(express.static("public"));
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("🚀 API com Express + Prisma + TypeScript funcionando!");
-});
+//Rotas da API
+app.use("/", authRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
