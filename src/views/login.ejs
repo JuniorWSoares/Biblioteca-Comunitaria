@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Comunitária - Login</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script type="module" src="/assets/js/login.js" defer></script> 
+    <script type="module" src="/assets/js/modal.js" defer></script>
+</head>
+<body>
+    <% if(alert){ %>
+        <%  %>
+    <% } %>
+
+    <div id="login-register-view" class="login-register-view">
+        <div class="left-side">
+            <h1> Faça Login <br> E entre para a nossa comunidade</h1>
+            <img src="/images/bibliophile-animate.svg" class="left-side-img" alt="Animação de uma pessoa voando com livro">
+        </div>
+        <div class="right-side">
+            <form action="/auth/login" method="post" id="login-form" class="card-form">
+                <h1>LOGIN</h1>
+                <div class="textfield">
+                    <label for="login-usuario">Email</label>
+                    <input type="text" id="login-usuario" placeholder="Email" name="email" required>
+                </div>
+                <div class="textfield">
+                    <label for="login-senha">Senha</label>
+                    <input type="password" id="login-senha" placeholder="Senha" name="password" required>
+                </div>
+                <button type="submit" id="btn-login" class="btn-submit">Login</button>
+                <p style="color: #f0ffffde;">Ainda não tem conta?
+                    <a href="#" id="show-register">Cadastre-se</a>
+                </p>
+            </form>
+            <form action="/auth/register" method="post" id="register-form" class="card-form" style="display: none;">
+                <h1>CADASTRO</h1>
+                <div class="textfield">
+                    <label for="register-nome">Nome</label>
+                    <input type="text" name="name" id="register-nome" placeholder="Digite seu nome" required>
+                </div>
+                <div class="textfield">
+                    <label for="register-email">Email</label>
+                    <input type="email" name="email" id="register-email" placeholder="Digite seu email" required>
+                </div>
+                <div class="textfield">
+                    <label for="register-telefone">Número</label>
+                    <input type="text" name="phone" id="register-telefone" placeholder="Digite seu número de telefone">
+                </div>
+                <div class="textfield">
+                    <label for="register-senha">Senha</label>
+                    <input type="password" name="password" id="register-senha" placeholder="Crie uma senha" required>
+                </div>
+                <button id="btn-register" class="btn-submit" type="submit">Cadastrar</button>
+                <p style="color: #f0ffffde;">Já tem conta?
+                    <a href="#" id="show-login">Faça login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- MEXER DEPOIS -->
+    <% if(alert) { %>
+        <div id="message-modal" class="message-modal" style="display:flex;">
+            <div class="message-box">
+                <h3 id="modal-title">Erro</h3>
+                <p id="modal-message"><%=alert.message %></p>
+                <button id="close-modal">OK</button>
+            </div>
+        </div>
+    <% } %>
+</body>
+</html>

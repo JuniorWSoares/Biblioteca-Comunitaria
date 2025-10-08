@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Comunitária</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script type="module" src="/assets/js/homepage.js" defer></script>
+    <script type="module" src="/assets/js/modal.js" defer></script>
+</head>
+<body>
+
+    <div id="bookstore-view" class="bookstore-view" style="display: block;">
+        <header class="header">
+            <h1 class="logo">📚 Biblioteca Comunitária</h1>
+            <div class="header-right">
+                <a href="/donate" id="donate-btn" class="btn-doar">Doar Livro</a>
+                
+                <form action="/search-for" method="post" class="search-bar">
+                    <input type="text" name="bookName" id="search-input" placeholder="Pesquisar livros...">
+                    <button id="search-btn" type="submit">🔍</button>
+                </form>
+            </div>
+        </header>
+
+        <h2 class="header-subtitle">Encontre, resgate ou doe livros na comunidade</h2>
+
+        <% if (currentUrl === '/search-for') { %>
+            <a href="/" class="back-button2">Voltar</a>
+        <% } %>
+
+        <div id="book-list" class="book-list"></div>
+    </div>
+
+    <div id="book-details-view" class="book-details-view">
+        <button id="back-button" class="back-button">&larr; Voltar</button>
+        <div id="book-details" class="book-details-container">
+        </div>
+    </div>
+    
+    <% if(alert) { %>
+        <div id="message-modal" class="message-modal" style="display:flex;">
+            <div class="message-box">
+                <h3 id="modal-title"><%=alert.title %> </h3>
+                <p id="modal-message"> <%=alert.message %> </p>
+                <button id="close-modal">OK</button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Aqui mandamos os dados para o JS -->
+    <script id="books" type="application/json">
+        <%- JSON.stringify(books) %>
+    </script>
+</body>
+</html>

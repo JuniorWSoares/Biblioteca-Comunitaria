@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Comunitária - Doar Livro</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script type="module" src="/assets/js/donation.js" defer></script> 
+    <script type="module" src="/assets/js/modal.js" defer></script>
+</head>
+<body>
+
+    <div id="donate-page-view" class="login-register-view">
+        
+        <a href="/" class="back-button">&larr; Voltar</a>
+
+        <div class="left-side">
+            <h1> Doe seu livro <br> E ajude a comunidade!</h1>
+            <img src="/images/bibliophile-animate.svg" class="left-side-img" alt="Animação de uma pessoa voando com livro">
+        </div>
+
+        <div class="right-side">
+            <form action="/donate" method="post" id="donate-form" class="card-form" enctype="multipart/form-data">
+                <h1>CADASTRO DO LIVRO</h1>
+                <div class="textfield">
+                    <label for="donate-title">Título</label>
+                    <input type="text" name="title" id="donate-title" placeholder="Ex.: Senhor dos Anéis" required>
+                </div>
+                <div class="textfield">
+                    <label for="donate-author">Autor</label>
+                    <input type="text" name="author" id="donate-author" placeholder="Ex.: John Ronald Reuel Tolkien" required>
+                </div>
+                <div class="textfield">
+                    <label for="donate-description">Sinopse</label>
+                    <textarea id="donate-description" name="synopsis" rows="5" placeholder="Ex.: Em uma terra fantástica e única, um hobbit recebe de presente de seu tio um anel mágico e maligno que precisa..." required></textarea>
+                </div>
+                <div class="textfield">
+                    <label for="donate-cover-url">Capa</label>
+                    <input type="file" name="bookCover" id="donate-cover-url" required>
+                </div>
+                <button id="btn-donate-submit" class="btn-submit" type="submit">Doar</button>
+            </form>
+        </div>
+    </div>
+    
+    <% if(alert) { %>
+        <div id="message-modal" class="message-modal" style="display:flex;">
+            <div class="message-box">
+                <h3 id="modal-title"><%= alert.title %></h3>
+                <p id="modal-message"><%= alert.message %></p>
+                <button id="close-modal">OK</button>
+            </div>
+        </div>
+    <% } %>
+
+</body>
+</html>

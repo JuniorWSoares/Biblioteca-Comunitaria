@@ -12,43 +12,42 @@ enum Papel {
   voluntario
 }
 
-model Usuarios {
-  id        Int          @id @default(autoincrement())
-  nome      String
-  telefone  String?      @db.VarChar(20)
-  email     String       @unique
-  senha     String
-  papel     Papel
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  nome     String
+  telefone String? @db.VarChar(20)
+  email    String  @unique
+  senha    String
+  papel    Papel
 
-  // Relações
-  exemplaresDoadados   Exemplares[] @relation("Doador")
-  exemplaresRecebidos  Exemplares[] @relation("Receptor")
+  // Relações com a tabela Doacao
+  doacoesFeitas     Doacao[] @relation("DoadorRelation")
+  doacoesRecebidas  Doacao[] @relation("ReceptorRelation")
 }
 
-model Livros {
-  id         Int          @id @default(autoincrement())
-  titulo     String
-  autor      String?
-  categoria  String?
-  foto_capa  String?
-  sinopse    String?
-  quantidade Int          @default(0)
+model Livro {
+  id          Int      @id @default(autoincrement())
+  titulo      String
+  autor       String?
+  foto_capa   String?
+  sinopse     String?
 
-  // Relação
-  exemplares Exemplares[]
+  // Relação 1:1 com Doacao
+  doacao      Doacao?
 }
 
-model Exemplares {
+model Doacao {
   id            Int       @id @default(autoincrement())
-  data_doacao   DateTime? @db.Date
-  data_recepcao DateTime? @db.Date
+  data_doacao   DateTime  @default(now()) @db.Date
+  data_resgate  DateTime? @db.Date
 
-  id_doador     Int?
-  id_receptor   Int?
-  id_livro      Int
+  // Chaves estrangeiras
+  id_livro     Int  @unique
+  id_doador    Int
+  id_receptor  Int?
 
   // Relações
-  doador    Usuarios? @relation("Doador", fields: [id_doador], references: [id], onDelete: SetNull)
-  receptor  Usuarios? @relation("Receptor", fields: [id_receptor], references: [id], onDelete: SetNull)
-  livro     Livros    @relation(fields: [id_livro], references: [id], onDelete: Cascade)
+  livro      Livro    @relation(fields: [id_livro], references: [id], onDelete: Cascade)
+  doador     Usuario  @relation("DoadorRelation", fields: [id_doador], references: [id], onDelete: Cascade)
+  receptor   Usuario? @relation("ReceptorRelation", fields: [id_receptor], references: [id], onDelete: SetNull)
 }
