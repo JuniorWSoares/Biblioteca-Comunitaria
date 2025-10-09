@@ -29,6 +29,10 @@ export class AuthService {
 
     async register( name: string, email: string, password: string, phone?: string) {
         const hashedPassword = await bcrypt.hash(password, 10)
+
+        const userExists = await this.userRepository.findByEmail(email)
+        if(userExists) throw new HttpError(409, "Email ja cadastrado")
+
         const user = await this.userRepository.create({name, email, password: hashedPassword, phone})
 
         const secretKey = process.env.SECRET_KEY
