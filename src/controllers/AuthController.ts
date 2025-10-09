@@ -26,4 +26,14 @@ export class AuthController {
             next(error)  
         }
     }
+
+    logout: Handler = async (req, res, next) => {
+        try {
+            res.clearCookie('token')
+            res.clearCookie('userData')
+            res.redirect("/")
+        } catch (error) {
+            next(error)  
+        }
+    }
 }
