@@ -290,6 +290,28 @@
             font-size: 0.9rem;
         }
 
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 50px auto 30px;
+            gap: 5px;
+        }
+
+        .page-btn {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            color: #626262;
+            border-radius: 4px;
+        }
+
+        .page-btn.active {
+            background-color: #7700ff;
+            color: #fff;
+            border-color: #7700ff;
+        }
+
+
         /* Página de detalhes */
         .book-details-container, .donate-form-container {
             background: #2f2841;
