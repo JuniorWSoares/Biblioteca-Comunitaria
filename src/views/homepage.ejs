@@ -17,7 +17,7 @@
             <div class="header-right">
                 <a href="/donate" id="donate-btn" class="btn-doar">Doar Livro</a>
                 
-                <form action="/search-for" method="post" class="search-bar">
+                <form action="/search-for" method="get" class="search-bar">
                     <input type="text" name="bookName" id="search-input" placeholder="Pesquisar livros...">
                     <button id="search-btn" type="submit">🔍</button>
                 </form>
@@ -31,6 +31,25 @@
         <% } %>
 
         <div id="book-list" class="book-list"></div>
+
+        <div class="pagination">
+            <% 
+                const baseUrl = '/search-for?bookName=' + encodeURIComponent(bookName || '');
+                const pageParam = '&page=';
+            %>
+
+            <% if (page > 1) { %>
+                <a href="<%= baseUrl %><%= pageParam %><%= page - 1 %>" class="page-btn">&laquo; Anterior</a>
+            <% } %>
+
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <a href="<%= baseUrl %><%= pageParam %><%= i %>" class="page-btn <%= page === i ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+
+            <% if (page < totalPages) { %>
+                <a href="<%= baseUrl %><%= pageParam %><%= page + 1 %>" class="page-btn">Próximo &raquo;</a>
+            <% } %>
+        </div>
     </div>
 
     <div id="book-details-view" class="book-details-view">
