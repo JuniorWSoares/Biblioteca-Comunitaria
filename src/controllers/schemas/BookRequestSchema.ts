@@ -5,7 +5,3 @@ export const RegisterBookRequestSchema = z.object({
     author: z.string().optional(),
     synopsis: z.string().optional()
 })
-
-export const searchBookByNameRequestSchema = z.object({
-    bookName: z.string()
-})

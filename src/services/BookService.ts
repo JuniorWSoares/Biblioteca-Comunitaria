@@ -7,12 +7,12 @@ export class BookService  {
     private bookRepository = new PrismaBookRepository()
     private userRepository = new PrismaUserRepository()
 
-    getAllBooks() {
-        return this.bookRepository.findAll()
+    getAllBooks(skip: number, limit:number) {
+        return this.bookRepository.findAll(skip, limit)
     }
 
-    getBookByName(name: string) {
-       return this.bookRepository.findByName(name)
+    getBooksByName(name: string, skip: number, limit:number) {
+       return this.bookRepository.findByName(name, skip, limit)
     }
 
     getBookById(id: number) {

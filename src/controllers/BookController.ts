@@ -1,4 +1,4 @@
-import { RegisterBookRequestSchema, searchBookByNameRequestSchema } from "./schemas/BookRequestSchema.js"
+import { RegisterBookRequestSchema} from "./schemas/BookRequestSchema.js"
 import { BookService } from "../services/BookService.js"
 import { Handler } from "express"
 import jwt from "jsonwebtoken"
@@ -6,25 +6,38 @@ import jwt from "jsonwebtoken"
 export class BookController {
     private bookService = new BookService()
 
-    allBooks: Handler = async (req, res, next) => {
+    homepage: Handler = async (req, res, next) => {
         try {
-            const books = await this.bookService.getAllBooks()
+            const page = parseInt(req.query.page as string) || 1; 
+            const limit = 16; 
+            const skip = (page - 1) * limit;
+
+            const result = await this.bookService.getAllBooks(skip, limit)
+            const books = result.books
+            const totalPages = result.totalPages
+
             let alert = null
-            if(req.cookies.alert) { 
-                alert = JSON.parse(req.cookies.alert);
-            }
-            res.clearCookie("alert");
-            res.render("homepage", {books, currentUrl: req.originalUrl, alert})
+            if(req.cookies.alert) alert = JSON.parse(req.cookies.alert)
+            res.clearCookie("alert")
+
+            res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
         } catch (error) {
             next(error)  
         }
     }
 
-    bookByName: Handler = async (req, res, next) => {
+    homepageWithSearchedBooks: Handler = async (req, res, next) => {
         try {
-            const {bookName} = searchBookByNameRequestSchema.parse(req.body)
-            const books = await this.bookService.getBookByName(bookName)
-            res.render("homepage", {books, currentUrl: req.originalUrl, alert: null})
+            const page = parseInt(req.query.page as string) || 1; 
+            const limit = 16; 
+            const skip = (page - 1) * limit;
+            const bookName = req.query.bookName as string
+            const result = await this.bookService.getBooksByName(bookName, skip, limit)
+
+            const books = result.books
+            const totalPages = result.totalPages
+
+            res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert: null, bookName})
         } catch (error) {
             next(error)      
         }

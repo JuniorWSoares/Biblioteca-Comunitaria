@@ -6,12 +6,12 @@ import { upload } from "../middlewares/uploadMiddleware.js"
 const router = express.Router()
 
 //Pagina inicial
-router.get("/", authMiddleware, bookController.allBooks)
+router.get("/", authMiddleware, bookController.homepage)
 //Pagina de doacao
 router.get("/donate", authMiddleware, (req, res) => res.render("donation", {alert: false}))
 
 //Pesquisar por nome livro
-router.post("/search-for", authMiddleware, bookController.bookByName)
+router.get("/search-for", authMiddleware, bookController.homepageWithSearchedBooks)
 //Doar livro
 router.post("/donate", authMiddleware, upload.single("bookCover"), bookController.donateBook)
 //Resgatar livro

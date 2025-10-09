@@ -1,21 +1,35 @@
 import { Livro } from "@prisma/client";
 import { prisma } from "../../database/index.js";
-import { BooksRepository, CreateBookAttributes } from "../BookRepository.js";
+import { BooksRepository, CreateBookAttributes, ReturnWithPagination } from "../BookRepository.js";
 
 export class PrismaBookRepository implements BooksRepository {
-    findAll(): Promise<Livro[]> {
-        return prisma.livro.findMany({
+    async findAll(skip: number, limit:number): Promise<ReturnWithPagination> {
+        const books = await prisma.livro.findMany({
             where: {
                 doacao: {
                     id_receptor: null    
                 }
             },
-            orderBy: {titulo: 'asc'}
+            orderBy: {titulo: 'asc'},
+            skip,
+            take: limit
         })
+
+        const totalBooks = await prisma.livro.count({
+            where: {
+                doacao: {
+                    id_receptor: null
+                }
+            }
+        })
+
+        const totalPages = Math.ceil(totalBooks / limit)
+
+        return {books, totalPages}
     }
 
-    findByName(name: string):Promise<Livro[] | null> {
-        return prisma.livro.findMany({
+    async findByName(name: string, skip: number, limit:number):Promise<ReturnWithPagination> {
+        const books = await prisma.livro.findMany({
             where: {
                 doacao: {
                     id_receptor: null
@@ -25,8 +39,26 @@ export class PrismaBookRepository implements BooksRepository {
                     mode: "insensitive"
                 }
             },
-            orderBy: {titulo: 'asc'}
+            orderBy: {titulo: 'asc'},
+            skip,
+            take: limit
         }) 
+
+        const totalBooks = await prisma.livro.count({
+            where: {
+                doacao: {
+                    id_receptor: null
+                },
+                titulo: {
+                    contains: name,
+                    mode: "insensitive"
+                } 
+            }
+        })
+
+        const totalPages = Math.ceil(totalBooks / limit)
+
+        return {books, totalPages}
     }
 
     findById(id: number): Promise<Livro | null> {

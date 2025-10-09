@@ -1,5 +1,10 @@
 import { Livro } from "@prisma/client";
 
+export interface ReturnWithPagination{
+    books: Livro[],
+    totalPages: number    
+}
+
 export interface CreateBookAttributes{
     title: string,
     donorId: number,
@@ -9,8 +14,8 @@ export interface CreateBookAttributes{
 }
 
 export interface BooksRepository {
-    findAll: () => Promise<Livro[]>
-    findByName: (name: string) => Promise<Livro[] | null>
+    findAll: (skip: number, limit: number) => Promise<ReturnWithPagination>
+    findByName: (name: string, skip: number, limit: number) => Promise<ReturnWithPagination>
     findById: (id: number) => Promise<Livro | null>
     create: (attributes: CreateBookAttributes) => Promise<void>
     delete: (id: number) => Promise<Livro | null>
