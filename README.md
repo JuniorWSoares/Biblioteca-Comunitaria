@@ -11,14 +11,23 @@ Projeto desenvolvido na disciplina de **Projeto de Desenvolvimento Web Back-End*
 - Consulta e busca de livros disponíveis
 - Interface amigável para bibliotecários e voluntários
 
-## Tecnologias Utilizadas
+## Tecnologias e Dependências Utilizadas
 
-- [Node.js](https://nodejs.org/) / [Express](https://expressjs.com/) (Back-End)
-- [PostgreSQL](https://www.postgresql.org/) (Banco de Dados)
-- [Prisma](https://www.prisma.io/) (ORM)
-- JavaScript / TypeScript
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/) 
+- [PostgreSQL](https://www.postgresql.org/)
+- [Prisma](https://www.prisma.io/)
+- JavaScript
+- TypeScript
 - HTML
 - CSS
+- EJS
+- bcryptjs
+- cookie-parser
+- jsonwebtoken
+- multer
+- zod
+- tsx
 
 ## Como Rodar o Projeto
 
