@@ -16,6 +16,7 @@ export interface CreateBookAttributes{
 export interface BooksRepository {
     findAll: (skip: number, limit: number) => Promise<ReturnWithPagination>
     findByName: (name: string, skip: number, limit: number) => Promise<ReturnWithPagination>
+    findDonatedBooks: (userId: number, skip: number, limit: number) => Promise<ReturnWithPagination>
     findById: (id: number) => Promise<Livro | null>
     create: (attributes: CreateBookAttributes) => Promise<void>
     delete: (id: number) => Promise<Livro | null>

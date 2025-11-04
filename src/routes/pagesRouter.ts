@@ -12,6 +12,8 @@ router.get("/donate", authMiddleware, (req, res) => res.render("donation", {aler
 
 //Pesquisar por nome livro
 router.get("/search-for", authMiddleware, bookController.homepageWithSearchedBooks)
+//Buscar livros doados
+router.get("/donatedBooks", authMiddleware, bookController.allDonatedBooks)
 //Doar livro
 router.post("/donate", authMiddleware, upload.single("bookCover"), bookController.donateBook)
 //Resgatar livro

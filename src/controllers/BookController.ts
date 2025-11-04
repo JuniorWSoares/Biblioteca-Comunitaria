@@ -43,6 +43,34 @@ export class BookController {
         }
     }
 
+    allDonatedBooks: Handler = async (req, res, next) => {
+        try {
+            const page = parseInt(req.query.page as string) || 1; 
+            const limit = 16; 
+            const skip = (page - 1) * limit; 
+            
+            const secretKey = process.env.SECRET_KEY
+            if (!secretKey) throw new Error('SECRET_KEY não definida no .env')
+
+            const token = req.cookies?.userData
+            const userData = jwt.verify(token, secretKey) as { id: number, name: string}
+            const userId = userData.id
+            
+            const result = await this.bookService.getDonatedBooks(userId, skip, limit)
+            const books = result.books
+            const totalPages = result.totalPages 
+            
+            let alert = null
+            if(req.cookies.alert) alert = JSON.parse(req.cookies.alert)
+            res.clearCookie("alert")
+
+            // res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
+            res.json({books, currentUrl: req.path, page, totalPages, alert, bookName: null})
+        } catch (error) {
+            next(error)    
+        } 
+    }
+
     bookById: Handler = async (req, res, next) => {
         try {
             //Implementar

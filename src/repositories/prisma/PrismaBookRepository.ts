@@ -61,6 +61,30 @@ export class PrismaBookRepository implements BooksRepository {
         return {books, totalPages}
     }
 
+    async findDonatedBooks(userId: number, skip: number, limit: number): Promise<ReturnWithPagination> {
+        const books = await prisma.livro.findMany({
+            where: {
+                doacao: {
+                    id_doador: userId
+                }
+            },
+            orderBy: {titulo: 'asc'},
+            skip,
+            take: limit
+        })
+
+        const totalBooks = await prisma.livro.count({
+            where: {
+                doacao: {
+                    id_doador: userId
+                }
+            }    
+        })
+
+        const totalPages = Math.ceil(totalBooks / limit)
+        return {books, totalPages}
+    }
+
     findById(id: number): Promise<Livro | null> {
         return prisma.livro.findUnique({where: {id}})
     }
