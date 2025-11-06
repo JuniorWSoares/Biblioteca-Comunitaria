@@ -15,6 +15,6 @@ export class DonationService {
         const book = await this.bookRepository.findById(bookId)
         if(!book) throw new HttpError(404, "Livro nao encontrado")
 
-        this.donationRepository.pickUpBook(user.id, book.id)
+        await this.donationRepository.pickUpBook(user.id, book.id)
     }
 }
