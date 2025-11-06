@@ -59,14 +59,28 @@
     </div>
 
     <!-- MEXER DEPOIS -->
-    <% if(alert) { %>
-        <div id="message-modal" class="message-modal" style="display:flex;">
-            <div class="message-box">
-                <h3 id="modal-title">Erro</h3>
-                <p id="modal-message"><%=alert.message %></p>
-                <button id="close-modal">OK</button>
+    <% if ((messages?.success || []).length > 0) { %>
+        <% messages.success.forEach(msg => { %>
+            <div id="message-modal" class="message-modal" style="display:flex;">
+                <div class="message-box">
+                    <h3 id="modal-title"><%= msg.title %></h3>
+                    <p id="modal-message"><%= msg.message %></p>
+                    <button id="close-modal">OK</button>
+                </div>
             </div>
-        </div>
+        <% }) %>
+    <% } %>
+
+    <% if ((messages?.error || []).length > 0) { %>
+        <% messages.error.forEach(msg => { %>
+            <div id="message-modal" class="message-modal" style="display:flex;">
+                <div class="message-box">
+                    <h3 id="modal-title"><%= msg.title %></h3>
+                    <p id="modal-message"><%= msg.message %></p>
+                    <button id="close-modal">OK</button>
+                </div>
+            </div>
+        <% }) %>    
     <% } %>
 </body>
 </html>
