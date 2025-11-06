@@ -1,117 +1,127 @@
-import { RegisterBookRequestSchema} from "./schemas/BookRequestSchema.js"
+import { RegisterBookRequestSchema } from "./schemas/BookRequestSchema.js"
 import { BookService } from "../services/BookService.js"
 import { Handler } from "express"
-import jwt from "jsonwebtoken"
+import { HttpError } from "../errors/HttpError.js"
+import { getUserIdFromToken } from "../utils/getUserIdFromToken.js"
+import { pagination } from "../utils/pagination.js"
+import {messagesByCookie, setMessages } from "../utils/messages.js"
 
 export class BookController {
-    private bookService = new BookService()
+  private bookService = new BookService()
 
-    homepage: Handler = async (req, res, next) => {
-        try {
-            const page = parseInt(req.query.page as string) || 1; 
-            const limit = 16; 
-            const skip = (page - 1) * limit;
+  //Paginas renderizadas
 
-            const result = await this.bookService.getAllBooks(skip, limit)
-            const books = result.books
-            const totalPages = result.totalPages
+  homepage: Handler = async (req, res, next) => {
+    try {
+      const {page, limit, skip} = pagination(req, 16)
+      const {books, totalPages} = await this.bookService.getAllBooks(skip, limit)
 
-            let alert = null
-            if(req.cookies.alert) alert = JSON.parse(req.cookies.alert)
-            res.clearCookie("alert")
+      let messages = {success: [], error: []}
+      messagesByCookie(req, res)
+      
+      if(res.locals.messages) messages = res.locals.messages
 
-            res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
-        } catch (error) {
-            next(error)  
-        }
+      res.render("homepage", {
+        books,
+        currentUrl: req.path,
+        page,
+        totalPages,
+        messages,
+        bookName: null
+      })
+    } catch (error) {
+      next(error)
     }
+  }
 
-    homepageWithSearchedBooks: Handler = async (req, res, next) => {
-        try {
-            const page = parseInt(req.query.page as string) || 1; 
-            const limit = 16; 
-            const skip = (page - 1) * limit;
-            const bookName = req.query.bookName as string
-            const result = await this.bookService.getBooksByName(bookName, skip, limit)
+  homepageWithSearch: Handler = async (req, res, next) => {
+    try {
+      const {page, limit, skip} = pagination(req, 16)
+      const bookName = req.query.bookName as string
+      const {books, totalPages} = await this.bookService.getBooksByName(bookName, skip, limit)
 
-            const books = result.books
-            const totalPages = result.totalPages
+      let messages = {success: [], error: []}
+      messagesByCookie(req, res)
+      
+      if(res.locals.messages) messages = res.locals.messages
 
-            res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert: null, bookName})
-        } catch (error) {
-            next(error)      
-        }
+      res.render("homepage", {
+        books,
+        currentUrl: req.path,
+        page,
+        totalPages,
+        messages,
+        bookName
+      })
+    } catch (error) {
+      next(error)
     }
+  }
 
-    allDonatedBooks: Handler = async (req, res, next) => {
-        try {
-            const page = parseInt(req.query.page as string) || 1; 
-            const limit = 16; 
-            const skip = (page - 1) * limit; 
-            
-            const secretKey = process.env.SECRET_KEY
-            if (!secretKey) throw new Error('SECRET_KEY não definida no .env')
+  allDonatedBooks: Handler = async (req, res, next) => {
+    try {
+      const {page, limit, skip} = pagination(req, 16)
+      const userId = getUserIdFromToken(req)
+      const {books, totalPages} = await this.bookService.getDonatedBooks(userId, skip, limit)
 
-            const token = req.cookies?.userData
-            const userData = jwt.verify(token, secretKey) as { id: number, name: string}
-            const userId = userData.id
-            
-            const result = await this.bookService.getDonatedBooks(userId, skip, limit)
-            const books = result.books
-            const totalPages = result.totalPages 
-            
-            let alert = null
-            if(req.cookies.alert) alert = JSON.parse(req.cookies.alert)
-            res.clearCookie("alert")
+      const messages = messagesByCookie(req, res)
 
-            // res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
-            res.json({books, currentUrl: req.path, page, totalPages, alert, bookName: null})
-        } catch (error) {
-            next(error)    
-        } 
+      // res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
+      res.json({
+        books,
+        currentUrl: req.path,
+        page,
+        totalPages,
+        messages,
+        bookName: null,
+      })
+    } catch (error) {
+      next(error)
     }
+  }
 
-    bookById: Handler = async (req, res, next) => {
-        try {
-            //Implementar
-        } catch (error) {
-            
-        }
+  bookById: Handler = async (req, res, next) => {
+    try {
+      //Implementar
+    } catch (error) {}
+  }
+
+  donateBook: Handler = async (req, res, next) => {
+    try {
+      const donorId = getUserIdFromToken(req)
+      const { title, author, synopsis } = RegisterBookRequestSchema.parse(req.body)
+      const bookCover = `/uploads/${req.file?.filename}`
+
+      const bookData = { title, donorId, author, bookCover, synopsis }
+      await this.bookService.registerBook(bookData)
+
+      const messages = setMessages(
+        "success", 
+        "Doação realizada!", 
+        "Sua doação fortalece nossa comunidade e incentiva o amor pela leitura."
+      )
+
+      res.render("donation", { messages })
+    } catch (error) {
+
+      if (error instanceof HttpError) {
+        const messages = setMessages(
+          "error", 
+          "Erro ao doar!", 
+          error.message
+        )
+        return res.render("donation", { messages })
+      }
+      return next(error)
     }
+  }
 
-    donateBook: Handler = (req, res, next) => {
-        try {
-            const secretKey = process.env.SECRET_KEY
-            if (!secretKey) throw new Error('SECRET_KEY não definida no .env')
-
-            const token = req.cookies?.userData
-            const userData = jwt.verify(token, secretKey) as { id: number, name: string}
-            const donorId = userData.id
-
-            const {title, author, synopsis} = RegisterBookRequestSchema.parse(req.body)
-            const bookCover = `/uploads/${req.file?.filename}`
-            
-            const bookData = { title, donorId, author, bookCover, synopsis}
-            this.bookService.registerBook(bookData)
-
-            const alert = {
-                title: "Doação realizada com sucesso",
-                message: `Sua doação fortalece nossa comunidade e incentiva o amor pela leitura.
-                Muito obrigado por fazer parte dessa história!`
-            }
-
-            res.render("donation", {alert})
-        } catch (error) {
-            next(error)    
-        }
+  deleteBook: Handler = async (req, res, next) => {
+    try {
+      this.bookService.deleteBook(Number(req.params.id))
+      this.homepage(req, res, next)
+    } catch (error) {
+      next(error)
     }
-
-    deleteBook: Handler = async (req, res, next) => {
-        try {
-            this.bookService.deleteBook(Number(req.params.id))
-            res.render("homepage")
-        } catch (error) {
-            next(error)    
-        }
-    }
+  }
 }

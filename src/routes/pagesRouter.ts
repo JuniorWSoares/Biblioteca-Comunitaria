@@ -8,10 +8,9 @@ const router = express.Router()
 //Pagina inicial
 router.get("/", authMiddleware, bookController.homepage)
 //Pagina de doacao
-router.get("/donate", authMiddleware, (req, res) => res.render("donation", {alert: false}))
-
+router.get("/donate", authMiddleware, (req, res) => res.render("donation", {messages: { success: [], error: [] }}))
 //Pesquisar por nome livro
-router.get("/search-for", authMiddleware, bookController.homepageWithSearchedBooks)
+router.get("/search-for", authMiddleware, bookController.homepageWithSearch)
 //Buscar livros doados
 router.get("/donatedBooks", authMiddleware, bookController.allDonatedBooks)
 //Doar livro
