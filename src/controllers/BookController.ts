@@ -80,10 +80,26 @@ export class BookController {
     }
   }
 
-  bookById: Handler = async (req, res, next) => {
+  allReceivedBooks: Handler = async (req, res, next) => {
     try {
-      //Implementar
-    } catch (error) {}
+      const {page, limit, skip} = pagination(req, 16)
+      const userId = getUserIdFromToken(req)
+      const {books, totalPages} = await this.bookService.getReceivedBooks(userId, skip, limit)
+
+      const messages = messagesByCookie(req, res)
+
+      // res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
+      res.json({
+        books,
+        currentUrl: req.path,
+        page,
+        totalPages,
+        messages,
+        bookName: null,
+      })
+    } catch (error) {
+      next(error)
+    }
   }
 
   donateBook: Handler = async (req, res, next) => {

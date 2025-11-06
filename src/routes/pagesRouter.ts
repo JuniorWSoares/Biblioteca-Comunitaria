@@ -13,6 +13,8 @@ router.get("/donate", authMiddleware, (req, res) => res.render("donation", {mess
 router.get("/search-for", authMiddleware, bookController.homepageWithSearch)
 //Buscar livros doados
 router.get("/donatedBooks", authMiddleware, bookController.allDonatedBooks)
+//Buscar livros recebidos
+router.get("/receivedBooks", authMiddleware, bookController.allReceivedBooks)
 //Doar livro
 router.post("/donate", authMiddleware, upload.single("bookCover"), bookController.donateBook)
 //Resgatar livro

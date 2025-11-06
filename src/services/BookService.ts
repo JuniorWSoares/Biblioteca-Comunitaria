@@ -21,6 +21,12 @@ export class BookService  {
         return this.bookRepository.findDonatedBooks(userId, skip, limit)
     }
 
+    async getReceivedBooks(userId: number, skip: number, limit:number) {
+        const user = await this.userRepository.findById(userId)  
+        if(!user) throw new HttpError(404, "Usuario nao encontrado") 
+        return this.bookRepository.findReceivedBooks(userId, skip, limit)
+    }
+
     getBookById(id: number) {
         const book = this.bookRepository.findById(id)
         if(!book) throw new HttpError(404, "Livro nao encontrado")
