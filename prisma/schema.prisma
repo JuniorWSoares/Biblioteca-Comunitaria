@@ -13,16 +13,33 @@ enum Papel {
 }
 
 model Usuario {
-  id       Int     @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   nome     String
-  telefone String? @db.VarChar(20)
-  email    String  @unique
+  telefone String?  @db.VarChar(20)
+  email    String   @unique
   senha    String
   papel    Papel
 
-  // Relações com a tabela Doacao
+  // Relações com Doacao
   doacoesFeitas     Doacao[] @relation("DoadorRelation")
   doacoesRecebidas  Doacao[] @relation("ReceptorRelation")
+
+  // Relação com Endereco
+  endereco Endereco?
+}
+
+model Endereco {
+  id          Int     @id @default(autoincrement())
+  rua         String
+  numero      String?
+  bairro      String?
+  cidade      String
+  estado      String
+  cep         String?
+  complemento String?
+
+  usuarioId Int  @unique
+  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 }
 
 model Livro {
@@ -31,6 +48,7 @@ model Livro {
   autor       String?
   foto_capa   String?
   sinopse     String?
+  genero      String?
 
   // Relação 1:1 com Doacao
   doacao      Doacao?
