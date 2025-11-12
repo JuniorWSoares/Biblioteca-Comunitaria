@@ -20,26 +20,18 @@ model Usuario {
   senha    String
   papel    Papel
 
-  // Relações com Doacao
-  doacoesFeitas     Doacao[] @relation("DoadorRelation")
-  doacoesRecebidas  Doacao[] @relation("ReceptorRelation")
-
-  // Relação com Endereco
-  endereco Endereco?
-}
-
-model Endereco {
-  id          Int     @id @default(autoincrement())
-  rua         String
+  // Campos de endereço
+  rua         String?
   numero      String?
   bairro      String?
-  cidade      String
-  estado      String
+  cidade      String?
+  estado      String?
   cep         String?
   complemento String?
 
-  usuarioId Int  @unique
-  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  // Relações com Doacao
+  doacoesFeitas     Doacao[] @relation("DoadorRelation")
+  doacoesRecebidas  Doacao[] @relation("ReceptorRelation")
 }
 
 model Livro {
