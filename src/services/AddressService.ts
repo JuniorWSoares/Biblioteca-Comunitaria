@@ -12,4 +12,12 @@ export class AddressService {
 
         return await this.userRepository.updateAddress(params)
     }
+
+    async getAddress(userId: number): Promise<UserAddressDTO | null> {
+
+        const user = await this.userRepository.findById(userId)
+        if (!user)  throw new HttpError(404, "Usuário não encontrado.")
+        
+        return await this.userRepository.getAddress(userId)
+    }
 }

@@ -50,4 +50,19 @@ export class PrismaUserRepository implements UsersRepository {
             }
         })
     }
+
+    async getAddress(userId: number): Promise<UserAddressDTO | null> {
+        return await prisma.usuario.findUnique({
+            where: {id: userId},
+            select: {
+                rua: true,
+                numero: true,
+                bairro: true,
+                cidade: true,
+                estado: true,
+                cep: true,
+                complemento: true
+            }
+        })
+    }
 }

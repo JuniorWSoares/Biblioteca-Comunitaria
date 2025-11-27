@@ -33,4 +33,5 @@ export interface UsersRepository {
     findByEmail: (email: string) => Promise<Usuario | null>
     create: (attributes: RegisterUserAttributes) => Promise<Usuario>
     updateAddress: (attributes: AddressAttributes) => Promise<UserAddressDTO>
+    getAddress: (userId: number) => Promise<UserAddressDTO | null>
 }
