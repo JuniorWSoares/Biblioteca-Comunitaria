@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import cookieParser from "cookie-parser"
 import authRouter from "./routes/authRouter.js"
 import pagesRouter from "./routes/pagesRouter.js"
+import addressRouter from "./routes/addressRouter.js"
 import { errorHandler } from "./middlewares/errorMiddleware.js"
 
 const app = express()
@@ -22,6 +23,7 @@ app.use(cookieParser())
 //Rotas da API
 app.use("/auth", authRouter)
 app.use("/", pagesRouter)
+app.use("/", addressRouter)
 
 app.use(errorHandler)
 
