@@ -229,7 +229,7 @@ a:hover {
 }
 
 .search-bar input {
-    padding: 8px;
+    padding: .62rem;
     border-radius: 8px;
     border: none;
     background-color: #514869;
@@ -242,6 +242,129 @@ a:hover {
     border: none;
     background-color: #00ff88;
     cursor: pointer;
+}
+
+.search-select{
+    padding: 5px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    user-select: none;
+    width: 6rem; 
+    margin-right: 4px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* O Botão Principal */
+.custom-select-trigger {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 .9rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #f0ffffde;
+    height: 2.2rem; /* Altura do botão */
+    line-height: 45px;
+    background-color: #514869;
+    border: none;
+    border-radius: 8px; /* Bordas arredondadas */
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* A setinha feita com CSS puro */
+.arrow {
+    position: relative;
+    height: 1rem;
+    width: 10px;
+}
+.arrow::after {
+    content: ''; 
+    position: absolute;
+    top: 3px; 
+    right: 0;
+    border: solid #cccccc;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: 0.3s;
+}
+
+/* A Lista de Opções (Dropdown) */
+.custom-options {
+    position: absolute;
+    display: block;
+    top: 100%; /* Começa logo abaixo do botão */
+    left: 0;
+    right: 0;
+    background-color: #514869;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 10;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px); /* Animação suave */
+    transition: all 0.3s ease;
+    
+    margin-top: 10px; 
+}
+
+/* Estado Aberto (via Javascript) */
+.custom-select-wrapper.open .custom-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+.custom-select-wrapper.open .arrow::after {
+    transform: rotate(-135deg);
+    top: 6px; 
+}
+
+/* Estilo de cada opção */
+.custom-option {
+    position: relative;
+    display: block;
+    padding: 0 22px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0ffffde;
+    line-height: 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.custom-option:hover {
+    background-color: #675d82;
+}
+
+/* Opção selecionada */
+.custom-option.selected {
+    font-weight: bold;
+    color: #667eea;
+}
+
+.genre{
+    background-color: #b8a3e5;
+    color: #583f8e;
+    padding: .6rem;
+    border-radius: .8rem;
+    font-weight: 700;
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.445);
+}
+
+.author{
+    font-weight: 700;
 }
 
 .header-subtitle {

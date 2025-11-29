@@ -1,7 +1,7 @@
 import { Livro } from "@prisma/client";
 
 export interface ReturnWithPagination{
-    books: Livro[],
+    books: any[],
     totalPages: number    
 }
 
@@ -10,7 +10,8 @@ export interface CreateBookAttributes{
     donorId: number,
     author?: string,
     bookCover?: string,
-    synopsis?: string
+    synopsis?: string,
+    genre: string;
 }
 
 export interface BooksRepository {

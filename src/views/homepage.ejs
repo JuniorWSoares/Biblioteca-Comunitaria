@@ -21,7 +21,26 @@
                 </div>
                 
                 <form action="/search-for" method="get" class="search-bar">
-                    <input type="text" name="bookName" id="search-input" placeholder="Pesquisar livros...">
+                    <div class="custom-select-wrapper">
+                        <input type="hidden" name="type" id="search-type-input" value="<%= searchType || 'titulo' %>">
+
+                        <div class="custom-select-trigger">
+                            <span>
+                                <% if(searchType === 'autor') { %> Autor
+                                <% } else if(searchType === 'genero') { %> Gênero
+                                <% } else { %> Título <% } %>
+                            </span>
+                            <div class="arrow"></div>
+                        </div>
+
+                        <div class="custom-options">
+                            <span class="custom-option" data-value="titulo">Título</span>
+                            <span class="custom-option" data-value="autor">Autor</span>
+                            <span class="custom-option" data-value="genero">Gênero</span>
+                        </div>
+                    </div>
+                    
+                    <input type="text" name="term" value="<%= searchTerm %>" placeholder="Pesquisar..."> 
                     <button id="search-btn" type="submit">🔍</button>
                 </form>
             </div>
@@ -37,20 +56,28 @@
 
         <div class="pagination">
             <% 
-                const baseUrl = '/search-for?bookName=' + encodeURIComponent(bookName || '');
-                const pageParam = '&page=';
+                let urlBase = '';
+
+                // Lógica inteligente:
+                // Se o usuário digitou algo (searchTerm), a paginação deve manter a pesquisa e o tipo.
+                if (searchTerm) {
+                    urlBase = `/search-for?term=${encodeURIComponent(searchTerm)}&type=${encodeURIComponent(searchType)}&page=`;
+                } else {
+                    // Se não tem pesquisa, paginação simples na raiz
+                    urlBase = `/?page=`;
+                }
             %>
 
             <% if (page > 1) { %>
-                <a href="<%= baseUrl %><%= pageParam %><%= page - 1 %>" class="page-btn">&laquo; Anterior</a>
+                <a href="<%= urlBase %><%= page - 1 %>" class="page-btn">&laquo; Anterior</a>
             <% } %>
 
             <% for (let i = 1; i <= totalPages; i++) { %>
-                <a href="<%= baseUrl %><%= pageParam %><%= i %>" class="page-btn <%= page === i ? 'active' : '' %>"><%= i %></a>
+                <a href="<%= urlBase %><%= i %>" class="page-btn <%= page === i ? 'active' : '' %>"><%= i %></a>
             <% } %>
 
             <% if (page < totalPages) { %>
-                <a href="<%= baseUrl %><%= pageParam %><%= page + 1 %>" class="page-btn">Próximo &raquo;</a>
+                <a href="<%= urlBase %><%= page + 1 %>" class="page-btn">Próximo &raquo;</a>
             <% } %>
         </div>
     </div>

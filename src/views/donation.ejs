@@ -23,22 +23,42 @@
         <div class="right-side">
             <form action="/donate" method="post" id="donate-form" class="card-form" enctype="multipart/form-data">
                 <h1>CADASTRO DO LIVRO</h1>
+                
                 <div class="textfield">
                     <label for="donate-title">Título</label>
                     <input type="text" name="title" id="donate-title" placeholder="Ex.: Senhor dos Anéis" required>
                 </div>
+                
                 <div class="textfield">
                     <label for="donate-author">Autor</label>
                     <input type="text" name="author" id="donate-author" placeholder="Ex.: John Ronald Reuel Tolkien" required>
                 </div>
+
+                <div class="textfield">
+                    <label for="donate-genre">Gênero</label>
+                    <input list="lista-generos" name="genre" id="donate-genre" placeholder="Digite ou selecione..." required>
+                    
+                    <datalist id="lista-generos">
+                        <% if (typeof generosLiterarios !== 'undefined') { %>
+                            <% generosLiterarios.forEach(genero => { %>
+                                <option value="<%= genero %>">
+                            <% }) %>
+                        <% } else { %>
+                            <option value="Erro: Lista não carregada">
+                        <% } %>
+                    </datalist>
+                </div>
+                
                 <div class="textfield">
                     <label for="donate-description">Sinopse</label>
                     <textarea id="donate-description" name="synopsis" rows="5" placeholder="Ex.: Em uma terra fantástica e única, um hobbit recebe de presente de seu tio um anel mágico e maligno que precisa..." required></textarea>
                 </div>
+                
                 <div class="textfield">
                     <label for="donate-cover-url">Capa</label>
                     <input type="file" name="bookCover" id="donate-cover-url" required>
                 </div>
+                
                 <button id="btn-donate-submit" class="btn-submit" type="submit">Doar</button>
             </form>
         </div>

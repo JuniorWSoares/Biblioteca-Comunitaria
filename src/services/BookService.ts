@@ -15,6 +15,11 @@ export class BookService  {
        return this.bookRepository.findByName(name, skip, limit)
     }
 
+    searchBooks(term: string, type: string, skip: number, limit: number) {
+        // Apenas repassa os parâmetros para o repositório resolver a query
+        return this.bookRepository.search(term, type, skip, limit);
+    }
+
     async getDonatedBooks(userId: number, skip: number, limit:number) {
         const user = await this.userRepository.findById(userId)  
         if(!user) throw new HttpError(404, "Usuario nao encontrado") 
@@ -36,6 +41,7 @@ export class BookService  {
     async registerBook(params: CreateBookAttributes) {
         const user = await this.userRepository.findById(params.donorId)  
         if(!user) throw new HttpError(404, "Usuario nao encontrado")   
+        
         return this.bookRepository.create(params)
     }
 

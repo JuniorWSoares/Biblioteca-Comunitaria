@@ -5,6 +5,9 @@ import { HttpError } from "../errors/HttpError.js"
 import { getUserIdFromToken } from "../utils/getUserIdFromToken.js"
 import { pagination } from "../utils/pagination.js"
 import {messagesByCookie, setMessages } from "../utils/messages.js"
+import { generosLiterarios } from "../utils/bookGenres.js"
+import z from "zod"
+import { ZodError } from "zod"
 
 export class BookController {
   private bookService = new BookService()
@@ -13,10 +16,10 @@ export class BookController {
 
   homepage: Handler = async (req, res, next) => {
     try {
-      const {page, limit, skip} = pagination(req, 16)
-      const {books, totalPages} = await this.bookService.getAllBooks(skip, limit)
+      const { page, limit, skip } = pagination(req, 16)
+      const { books, totalPages } = await this.bookService.getAllBooks(skip, limit)
 
-      let messages = {success: [], error: []}
+      let messages = { success: [], error: [] }
       messagesByCookie(req, res)
       
       if(res.locals.messages) messages = res.locals.messages
@@ -27,7 +30,8 @@ export class BookController {
         page,
         totalPages,
         messages,
-        bookName: null
+        searchTerm: '',
+        searchType: 'titulo'  
       })
     } catch (error) {
       next(error)
@@ -36,14 +40,24 @@ export class BookController {
 
   homepageWithSearch: Handler = async (req, res, next) => {
     try {
-      const {page, limit, skip} = pagination(req, 16)
-      const bookName = req.query.bookName as string
-      const {books, totalPages} = await this.bookService.getBooksByName(bookName, skip, limit)
+      const { page, limit, skip } = pagination(req, 16)
+      
+      // Agora pegamos o termo (antigo bookName) e o tipo
+      const searchTerm = (req.query.term as string) || ''
+      const searchType = (req.query.type as string) || 'titulo' // Padrão: titulo
 
-      let messages = {success: [], error: []}
+      // Chamamos o serviço passando o tipo também
+      const { books, totalPages } = await this.bookService.searchBooks(
+        searchTerm, 
+        searchType, 
+        skip, 
+        limit
+      )
+
+      let messages = { success: [], error: [] }
       messagesByCookie(req, res)
       
-      if(res.locals.messages) messages = res.locals.messages
+      if (res.locals.messages) messages = res.locals.messages
 
       res.render("homepage", {
         books,
@@ -51,7 +65,9 @@ export class BookController {
         page,
         totalPages,
         messages,
-        bookName
+        // Passamos de volta para o EJS preencher os inputs
+        searchTerm, 
+        searchType  
       })
     } catch (error) {
       next(error)
@@ -102,13 +118,38 @@ export class BookController {
     }
   }
 
+  renderDonationPage: Handler = async (req, res, next) => {
+    try {
+      // 1. Prepara o objeto de mensagens 
+      let messages = { success: [], error: [] }
+      messagesByCookie(req, res)
+      
+      if (res.locals.messages) {
+        messages = res.locals.messages
+      }
+
+      // 2. Renderiza a view enviando TUDO que ela precisa
+      res.render("donation", { 
+        generosLiterarios, 
+        messages           
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+
   donateBook: Handler = async (req, res, next) => {
     try {
       const donorId = getUserIdFromToken(req)
-      const { title, author, synopsis } = RegisterBookRequestSchema.parse(req.body)
+      
+      // 1. Extraindo o 'genre' do corpo da requisição
+      const { title, author, synopsis, genre } = RegisterBookRequestSchema.parse(req.body)
+      
       const bookCover = `/uploads/${req.file?.filename}`
 
-      const bookData = { title, donorId, author, bookCover, synopsis }
+      // 2. Adicionando genre ao objeto de dados
+      const bookData = { title, donorId, author, bookCover, synopsis, genre }
+      
       await this.bookService.registerBook(bookData)
 
       const messages = setMessages(
@@ -117,16 +158,32 @@ export class BookController {
         "Sua doação fortalece nossa comunidade e incentiva o amor pela leitura."
       )
 
-      res.render("donation", { messages })
+      // 3. IMPORTANTE: Passar 'generosLiterarios' de volta para a view não quebrar
+      res.render("donation", { 
+        messages, 
+        generosLiterarios 
+      })
+
     } catch (error) {
 
+      // Verifica se é um erro do nosso sistema (HttpError)
       if (error instanceof HttpError) {
         const messages = setMessages(
           "error", 
           "Erro ao doar!", 
           error.message
         )
-        return res.render("donation", { messages })
+        return res.render("donation", { messages, generosLiterarios })
+      } 
+      else if (error instanceof ZodError) {
+        const primeiroErro = error.issues[0].message
+        
+        const messages = setMessages(
+          "error", 
+          "Dados inválidos", 
+          primeiroErro
+        )
+        return res.render("donation", { messages, generosLiterarios })
       }
       return next(error)
     }
