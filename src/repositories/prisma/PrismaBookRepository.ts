@@ -161,8 +161,8 @@ export class PrismaBookRepository implements BooksRepository {
         return prisma.livro.findUnique({where: {id}})
     }
 
-    async create(attributes: CreateBookAttributes): Promise<void> {
-        await prisma.livro.create({
+    async create(attributes: CreateBookAttributes): Promise<number> { 
+        const novoLivro = await prisma.livro.create({
             data: {
                 titulo: attributes.title,
                 autor: attributes.author,
@@ -175,8 +175,17 @@ export class PrismaBookRepository implements BooksRepository {
                         id_doador: attributes.donorId
                     }
                 }
+            },
+            include: {
+                doacao: true 
             }
         })
+
+        if (!novoLivro.doacao) {
+            throw new Error("Erro ao recuperar ID da doação.")
+        }
+
+        return novoLivro.doacao.id;
     }
 
     delete(id: number): Promise<Livro | null> {

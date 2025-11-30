@@ -42,7 +42,7 @@ export class BookService  {
         const user = await this.userRepository.findById(params.donorId)  
         if(!user) throw new HttpError(404, "Usuario nao encontrado")   
         
-        return this.bookRepository.create(params)
+        return await this.bookRepository.create(params)
     }
 
     async deleteBook(id: number) {

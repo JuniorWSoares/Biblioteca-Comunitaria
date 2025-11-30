@@ -253,12 +253,11 @@ a:hover {
 .custom-select-wrapper {
     position: relative;
     user-select: none;
-    width: 6rem; 
+    width: 7rem; 
     margin-right: 4px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* O Botão Principal */
 .custom-select-trigger {
     position: relative;
     display: flex;
@@ -268,16 +267,15 @@ a:hover {
     font-size: 1rem;
     font-weight: 500;
     color: #f0ffffde;
-    height: 2.2rem; /* Altura do botão */
+    height: 2.1rem;
     line-height: 45px;
     background-color: #514869;
     border: none;
-    border-radius: 8px; /* Bordas arredondadas */
+    border-radius: 8px; 
     cursor: pointer;
     transition: all 0.3s;
 }
 
-/* A setinha feita com CSS puro */
 .arrow {
     position: relative;
     height: 1rem;
@@ -296,11 +294,10 @@ a:hover {
     transition: 0.3s;
 }
 
-/* A Lista de Opções (Dropdown) */
 .custom-options {
     position: absolute;
     display: block;
-    top: 100%; /* Começa logo abaixo do botão */
+    top: 100%;
     left: 0;
     right: 0;
     background-color: #514869;
@@ -312,13 +309,13 @@ a:hover {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-10px); /* Animação suave */
+    transform: translateY(-10px);
     transition: all 0.3s ease;
     
     margin-top: 10px; 
+    overflow: hidden; 
 }
 
-/* Estado Aberto (via Javascript) */
 .custom-select-wrapper.open .custom-options {
     opacity: 1;
     visibility: visible;
@@ -331,26 +328,35 @@ a:hover {
     top: 6px; 
 }
 
-/* Estilo de cada opção */
 .custom-option {
     position: relative;
-    display: block;
-    padding: 0 22px;
+    display: flex; 
+    padding: 12px 10px; 
     font-size: 16px;
     font-weight: 500;
     color: #f0ffffde;
-    line-height: 40px;
     cursor: pointer;
     transition: all 0.3s;
 }
 
-.custom-option:hover {
-    background-color: #675d82;
+.custom-option i {
+    margin-right: 8px; 
+    width: 25px; 
+    text-align: left;
+    color: #bfaee3;
 }
 
-/* Opção selecionada */
+.custom-option:hover {
+    background-color: #675d82;
+    color: #fff; 
+}
+
 .custom-option.selected {
     font-weight: bold;
+    color: #667eea; 
+}
+
+.custom-option.selected i {
     color: #667eea;
 }
 
@@ -535,6 +541,251 @@ a:hover {
 
 .back-button:hover {
     background-color: #43395c;
+}
+/* Layout Geral - Fundo Roxo Escuro */
+.success-page-body {
+    background-color: #201b2c; /* Fundo Principal */
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #e0e0e0;
+}
+
+.success-main-wrapper {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Cabeçalho - Card Roxo Lighter */
+.success-header {
+    background: #2f2841; /* Fundo Secundário */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra suave */
+    margin-bottom: 30px;
+    border: 1px solid #3e3755; /* Borda sutil */
+}
+
+.icon-check i {
+    font-size: 3.5rem;
+    color: #27e88e; 
+    text-shadow: 0 0 10px rgba(31, 201, 122, 0.4); 
+    margin-bottom: 15px;
+}
+
+.success-header h1 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.success-header p {
+    color: #b0b3b8;
+}
+
+/* O Badge do ID (Destaque) */
+.id-badge {
+    background: #251f35; /* Um tom mais escuro que o card para profundidade */
+    border: 2px dashed #77ffc0; /* COR DE ÊNFASE (Borda) */
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.id-badge span {
+    display: block;
+    font-size: 0.75rem;
+    color: #77ffc0; /* COR DE ÊNFASE (Texto Label) */
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.id-badge strong {
+    display: block;
+    font-size: 2.5rem;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 5px 0;
+}
+
+.id-badge small {
+    display: block;
+    margin-top: 5px;
+    color: #ff7777; /* Vermelho suave para alerta (legível no roxo) */
+    font-weight: 600;
+}
+
+/* GRID DAS OPÇÕES */
+.delivery-options-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+/* Estilo dos Cards de Opção */
+.option-card {
+    background: #2f2841; /* Fundo Secundário */
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    text-align: left;
+    position: relative;
+    border-top: 5px solid #444;
+    transition: transform 0.2s ease;
+}
+
+.option-card:hover {
+    transform: translateY(-5px); /* Leve elevação ao passar o mouse */
+}
+
+/* Cores específicas das bordas mantidas para diferenciar os métodos */
+.option-card.presencial { border-top-color: #3498db; } 
+.option-card.correios { border-top-color: #f1c40f; }   
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+.presencial .card-icon { color: #3498db; }
+.correios .card-icon { color: #f1c40f; }
+
+.option-card h2 {
+    font-size: 1.4rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.desc {
+    color: #b0b3b8;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+/* Blocos de Informação (Endereço, etc) */
+.info-block {
+    margin-bottom: 15px;
+    background: #251f35; /* Fundo escuro dentro do card */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #3e3755;
+}
+
+.info-block strong {
+    color: #77ffc0; /* COR DE ÊNFASE (Títulos pequenos) */
+}
+
+/* Etiqueta de Correio */
+.shipping-label {
+    border: 1px solid #4a3f60;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    background: #251f35;
+    color: #ddd;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.label-dest { font-size: 0.7rem; color: #888; margin-bottom: 5px; }
+.label-cep { font-weight: bold; margin-top: 5px; color: #ddd; /* Ênfase no CEP */ }
+
+.alert-box {
+    font-size: 0.85rem;
+    color: #aab7b8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Divisor "OU" */
+.or-divider {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #77ffc0; /* Ênfase no texto */
+    background: #2f2841; /* Cor do card */
+    padding: 10px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-self: center;
+    border: 4px solid #201b2c; /* Borda da cor do FUNDO para "recortar" */
+    z-index: 2;
+}
+
+/* Botões de Ação (Mapa) */
+.btn-action.outline {
+    display: block;
+    text-align: center;
+    border: 2px solid #3498db;
+    color: #3498db;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s;
+    background: transparent;
+}
+.btn-action.outline:hover {
+    background: #3498db;
+    color: white;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+}
+
+/* Botão Voltar (Estilo Glassmorphism Dark) */
+.btn-back-home {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 600;
+    background-color: #2f2841;
+    padding: .8rem 1.2rem;
+    border-radius: 8px; /* Bem arredondado */
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+    border: 1px solid #3e3755;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back-home:hover { 
+    color: #77ffc0; /* Texto fica verde ao passar o mouse */
+    background-color: #38314e;
+    border-color: #77ffc0; /* Borda fica verde */
+    box-shadow: 0 0 15px rgba(119, 255, 192, 0.2); /* Glow suave */
+    transform: scale(1.02); 
+}
+
+.btn-back-home:active {
+    transform: scale(0.95);
+}
+
+.book-cover-details{
+    border: 10px solid #000;
+}
+
+/* Responsivo Celular */
+@media (max-width: 768px) {
+    .delivery-options-grid {
+        flex-direction: column;
+    }
+    .or-divider {
+        margin: -10px auto;
+        transform: rotate(90deg); /* Vira o separador se quiser */
+    }
 }
 
 /* Responsividade */

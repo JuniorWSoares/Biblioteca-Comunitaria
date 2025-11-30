@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doação Concluída!</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="success-page-body">
+    
+    <a href="/" class="btn-back-home">Voltar para Início</a>
+
+    <div class="success-main-wrapper">
+        
+        <header class="success-header">
+            <div class="icon-check">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h1>Livro Doado!</h1>
+            <p>Obrigado pela sua iniciativa. Agora, escolha como deseja nos entregar o livro.</p>
+            
+            <div class="id-badge">
+                <span>IDENTIFICADOR DA DOAÇÃO:</span>
+                <strong>#<%= donationId %></strong>
+                <small>⚠️ Escreva este código em um papel e coloque junto com o livro.</small>
+            </div>
+        </header>
+
+        <div class="delivery-options-grid">
+            
+            <div class="option-card presencial">
+                <div class="card-icon">
+                    <i class="fa-solid fa-walking"></i>
+                </div>
+                <h2>Levar Pessoalmente</h2>
+                <p class="desc">Visite nosso espaço, conheça o projeto e entregue em mãos.</p>
+                
+                <div class="info-block">
+                    <strong>📍 Endereço:</strong>
+                    <p>Av. Delfim Moreira, 7167 - Vale do Paraíso<br>Teresópolis - RJ</p>
+                </div>
+                
+                <div class="info-block">
+                    <strong>⏰ Recebimento:</strong>
+                    <p>Seg a Sex: 09h às 18h</p>
+                </div>
+
+                <a href="https://maps.app.goo.gl/oTUR5vQhRYRfHMTX9" target="_blank" class="btn-action outline">
+                    Ver no Mapa
+                </a>
+            </div>
+
+            <div class="or-divider">OU</div>
+
+            <div class="option-card correios">
+                <div class="card-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+                <h2>Enviar por Correio</h2>
+                <p class="desc">Envie de qualquer lugar. Proteja bem o livro na embalagem.</p>
+
+                <div class="shipping-label">
+                    <p class="label-dest">DESTINATÁRIO:</p>
+                    <p><strong>Biblioteca UNIFESO - Campus Quinta do Paraíso</strong></p>
+                    <p>Av. Delfim Moreira, 7167 - Vale do Paraíso</p>
+                    <p>Teresópolis - RJ</p>
+                    <p class="label-cep">CEP: 25976-016</p>
+                </div>
+
+                <div class="alert-box">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>Frete por conta do doador.</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

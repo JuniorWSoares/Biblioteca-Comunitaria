@@ -150,18 +150,10 @@ export class BookController {
       // 2. Adicionando genre ao objeto de dados
       const bookData = { title, donorId, author, bookCover, synopsis, genre }
       
-      await this.bookService.registerBook(bookData)
-
-      const messages = setMessages(
-        "success", 
-        "Doação realizada!", 
-        "Sua doação fortalece nossa comunidade e incentiva o amor pela leitura."
-      )
-
-      // 3. IMPORTANTE: Passar 'generosLiterarios' de volta para a view não quebrar
-      res.render("donation", { 
-        messages, 
-        generosLiterarios 
+      const donationId = await this.bookService.registerBook(bookData)
+      
+      res.render("donation-success", { 
+          donationId
       })
 
     } catch (error) {

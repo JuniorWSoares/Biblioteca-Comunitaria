@@ -85,7 +85,7 @@ function renderBookDetails() {
     }
 
     bookDetailsContainer.innerHTML = `
-        <img src="${selectedBook.foto_capa}" alt="Capa de ${selectedBook.titulo}" onerror="this.onerror=null; this.src='https://placehold.co/200x280/2f2841/00ff88?text=Sem+Capa';">
+        <img class="book-cover-details" src="${selectedBook.foto_capa}" alt="Capa de ${selectedBook.titulo}" onerror="this.onerror=null; this.src='https://placehold.co/200x280/2f2841/00ff88?text=Sem+Capa';">
         <h1>${selectedBook.titulo}</h1>
         <p class="genre">Gênero: ${selectedBook.genero}</p>
         <p class="author">por ${selectedBook.autor}</p>

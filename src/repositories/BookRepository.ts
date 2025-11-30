@@ -20,6 +20,6 @@ export interface BooksRepository {
     findDonatedBooks: (userId: number, skip: number, limit: number) => Promise<ReturnWithPagination>
     findReceivedBooks: (userId: number, skip: number, limit: number) => Promise<ReturnWithPagination>
     findById: (id: number) => Promise<Livro | null>
-    create: (attributes: CreateBookAttributes) => Promise<void>
+    create: (attributes: CreateBookAttributes) => Promise<number>
     delete: (id: number) => Promise<Livro | null>
 }
