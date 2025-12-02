@@ -514,3 +514,210 @@ a:hover {
         font-size: 1.4rem;
     }
 }
+
+/* Address Page Layout (estilo igual às telas existentes) */
+
+.main-login {
+    width: 100vw;
+    height: 100vh;
+    background-color: #201b2c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-login {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-login h1 {
+    color: #77ffc0;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.right-login {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login {
+    width: 60%;
+    background: #2f2841;
+    padding: 30px 35px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-login .btn-login {
+    width: 100%;
+    padding: 16px 0px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8852;
+    transition: background-color 0.3s;
+}
+
+.card-login .btn-login:hover {
+    background-color: #77ffc0;
+}
+
+@media only screen and (max-width: 900px) {
+    .main-login {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-login, .right-login {
+        width: 100%;
+    }
+
+    .card-login {
+        width: 85%;
+    }
+
+    .left-login h1 {
+        font-size: 1.7rem;
+    }
+}
+/* Address Page - Updated Styles (Formulário Novo Adaptado) */
+#address-page-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    min-height: 100vh;
+    gap: 40px;
+    padding: 20px;
+    background-color: #201b2c;
+}
+
+#address-page-view .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #2f2841;
+    padding: 10px 17px;
+    border-radius: 8px;
+    color: #77ffc0;
+    transition: 0.3s;
+}
+
+#address-page-view .back-button:hover {
+    background-color: #43395c;
+}
+
+#address-page-view .left-side h1 {
+    font-size: 2.3rem;
+    font-weight: bold;
+    color: #77ffc0;
+    margin-bottom: 10px;
+}
+
+#address-page-view .right-side {
+    width: 420px;
+    display: flex;
+    justify-content: center;
+}
+
+#address-page-view .card-form {
+    background: #2f2841;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000070;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+}
+
+#address-page-view .textfield {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+#address-page-view .textfield label {
+    color: #f0ffffde;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+#address-page-view .textfield input,
+#address-page-view .textfield textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #514869;
+    color: #f0ffffde;
+    font-size: 1rem;
+    box-shadow: 0px 10px 40px #00000056;
+}
+
+#address-page-view .textfield input:focus,
+#address-page-view .textfield textarea:focus {
+    background-color: #5e5578;
+    box-shadow: 0px 0px 5px #00ff88;
+}
+
+#address-page-view .btn-submit {
+    width: 100%;
+    padding: 16px 0px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8852;
+    transition: background-color 0.3s;
+}
+
+#address-page-view .btn-submit:hover {
+    background-color: #77ffc0;
+}
+
+@media only screen and (max-width: 900px) {
+    #address-page-view {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #address-page-view .right-side {
+        width: 100%;
+    }
+
+    #address-page-view .card-form {
+        width: 90%;
+        max-width: 420px;
+    }
+
+    #address-page-view .left-side h1 {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+}
