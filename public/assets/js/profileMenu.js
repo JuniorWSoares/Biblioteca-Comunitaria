@@ -1,13 +1,18 @@
-const profileIcon = document.getElementById("profileIcon");
-const profileMenu = document.getElementById("profileMenu");
+// profileMenu.js
+const profileIcon = document.getElementById('profileIcon');
+const profileMenu = document.getElementById('profileMenu');
 
-profileIcon.addEventListener("click", () => {
-    profileMenu.style.display =
-        profileMenu.style.display === "flex" ? "none" : "flex";
-});
+if (profileIcon && profileMenu) {
+  profileIcon.addEventListener('click', (e) => {
+    const isOpen = profileMenu.classList.toggle('open');
+    profileMenu.setAttribute('aria-hidden', (!isOpen).toString());
+  });
 
-document.addEventListener("click", (e) => {
-    if (!profileIcon.contains(e.target) && !profileMenu.contains(e.target)) {
-        profileMenu.style.display = "none";
+  // Fecha ao clicar fora
+  document.addEventListener('click', (e) => {
+    if (!profileMenu.contains(e.target) && !profileIcon.contains(e.target)) {
+      profileMenu.classList.remove('open');
+      profileMenu.setAttribute('aria-hidden', 'true');
     }
-});
+  });
+}
