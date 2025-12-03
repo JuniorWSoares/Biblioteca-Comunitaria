@@ -9,6 +9,7 @@
     <script type="module" src="/assets/js/homepage.js" defer></script>
     <script type="module" src="/assets/js/modal.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="/assets/js/profileMenu.js" defer></script>
 </head>
 <body>
 
@@ -20,7 +21,20 @@
                     <a href="/auth/logout" class="logout-btn" title="Sair"><img src="/images/sair-cinza.png"></a>
                     <a href="/donate" id="donate-btn" class="btn-doar">Doar Livro</a> 
                 </div>
-                
+                <div class="profile-container">
+    <div class="profile-icon" id="profileIcon">
+        <img src="/images/do-utilizador.png" alt="Perfil">
+    </div>
+
+    <div class="profile-menu" id="profileMenu">
+    <nav class="profile-menu-list">
+        <ul>
+            <li><a href="/assets/address.html">Atualizar Endereço</a></li>
+            <li><a href="/livros-doados">Ver Livros Doados</a></li>
+            <li><a href="/livros-resgatados">Ver Livros Resgatados</a></li>
+        </ul>
+        </nav>
+    </div>
                 <form action="/search-for" method="get" class="search-bar">
                     <div class="custom-select-wrapper">
                         <input type="hidden" name="type" id="search-type-input" value="<%= searchType || 'titulo' %>">

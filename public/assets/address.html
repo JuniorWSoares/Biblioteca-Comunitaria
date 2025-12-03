@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Endereço</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="address-page-view" class="login-register-view">
+
+    <a href="/" class="back-button">&larr; Voltar</a>
+
+    <div class="left-side">
+        <h1>Atualizar  Endereço</h1>
+    </div>
+
+    <div class="right-side">
+        <form action="/address.html" method="POST" id="address-form" class="card-form">
+            <div class="textfield">
+                <label for="estado">Estado</label>
+                <input type="text" name="estado" id="estado" placeholder="Digite seu estado" required>
+            </div>
+            <div class="textfield">
+                <label for="cidade">Cidade</label>
+                <input type="text" name="cidade" id="cidade" placeholder="Digite sua cidade" required>
+            </div>
+            <div class="textfield">
+                <label for="cep">CEP</label>
+                <input type="text" name="cep" id="cep" placeholder="Digite seu CEP" required>
+            </div>
+            <div class="textfield">
+                <label for="bairro">Bairro</label>
+                <input type="text" name="bairro" id="bairro" placeholder="Digite seu bairro" required>
+            </div>
+            <div class="textfield">
+                <label for="rua">Rua</label>
+                <input type="text" name="rua" id="rua" placeholder="Digite sua rua" required>
+            </div>
+            <div class="textfield">
+                <label for="complemento">Complemento</label>
+                <textarea id="complemento" name="complemento" rows="4" placeholder="Apartamento, bloco, referência..."></textarea>
+            </div>
+            <button id="btn-address-submit" class="btn-submit" type="submit">Salvar</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
