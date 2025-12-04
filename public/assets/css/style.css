@@ -1,3 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Base */
@@ -71,14 +77,18 @@ a:hover {
 }
 
 /* Login e Cadastro */
-.login-register-view, .bookstore-view, .book-details-view, .donate-view {
+.login-register-view,
+.bookstore-view,
+.book-details-view,
+.donate-view {
     padding: 20px;
     min-height: 100vh;
     display: none;
 }
 
 .login-register-view {
-    display: flex; /* Visível por padrão */
+    display: flex;
+    /* Visível por padrão */
     width: 100vw;
     height: 100vh;
     background-color: #201b2c;
@@ -95,7 +105,7 @@ a:hover {
     flex-direction: column;
 }
 
-.left-side > h1 {
+.left-side>h1 {
     color: #77ffc0;
     text-align: center;
 }
@@ -124,7 +134,7 @@ a:hover {
     box-shadow: 0px 10px 40px #00000056;
 }
 
-.card-form > h1 {
+.card-form>h1 {
     color: #00ff88;
     font-weight: 800;
     margin: 0;
@@ -140,7 +150,8 @@ a:hover {
     margin: 10px 0px;
 }
 
-.textfield > input, .textfield > textarea {
+.textfield>input,
+.textfield>textarea {
     width: 100%;
     border: none;
     border-radius: 10px;
@@ -153,12 +164,13 @@ a:hover {
     resize: vertical;
 }
 
-.textfield > label {
+.textfield>label {
     color: #f0ffffde;
     margin-bottom: 10px;
 }
 
-.textfield > input::placeholder, .textfield > textarea::placeholder {
+.textfield>input::placeholder,
+.textfield>textarea::placeholder {
     color: #f0ffff94;
 }
 
@@ -183,19 +195,28 @@ a:hover {
     background-color: #77ffc0;
 }
 
-/* Home Page */
 .header {
+    position: -webkit-sticky;
+    position: sticky;
+    height: 5rem;
+    top: 0;
+    z-index: 1000;
+    background-color: #2f2841; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    border-radius: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    padding: 0 2.5rem;
+    margin-bottom: 2rem; 
 }
 
-.header-left, .header-right {
+.header-left,
+.header-right {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .header-right {
@@ -206,7 +227,7 @@ a:hover {
     flex-wrap: nowrap;
 }
 
-.logout-btn{
+.logout-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -219,8 +240,8 @@ a:hover {
 }
 
 .logo {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     gap: 10px;
     font-size: 2rem;
     color: #00ff88;
@@ -230,15 +251,25 @@ a:hover {
 .search-bar {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .search-bar input {
     padding: .62rem;
     border-radius: 8px;
-    border: none;
-    background-color: #514869;
+    border: 1px solid #8d79d9;
+    background-color: #5e5083;
     color: #f0ffffde;
+}
+
+.search-bar input:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba(141, 121, 217, 0.5);
+}
+
+.search-bar input::placeholder {
+    color: #ccc;
+    opacity: 1;
 }
 
 .search-bar button {
@@ -248,6 +279,7 @@ a:hover {
     background-color: #00ff88;
     cursor: pointer;
 }
+
 .profile-container {
     position: relative;
     display: flex;
@@ -261,35 +293,32 @@ a:hover {
     height: 38px;
     cursor: pointer;
     border-radius: 50%;
-    border: 2px solid #6f6f6f;
+    border: none;
     display: block;
+    transition: border-color 0.2s;
+}
+
+.profile-icon img:hover {
+    box-shadow: 0 0 3px 2px rgba(141, 121, 217, 0.5);
 }
 
 .profile-menu {
     position: absolute;
     right: 0;
-    top: 48px;
-    width: 200px;
-    display: none;
+    top: 120%;
+    width: 260px;
     background: #2f2841;
     border-radius: 10px;
-    padding: 8px 0;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.45);
-    transform-origin: top right;
-    opacity: 0;
-    transform: translateY(-8px) scale(0.98);
-    transition: opacity 180ms ease, transform 180ms ease;
-    list-style: none;
+    padding: 10px;
+    display: none;
+    z-index: 1000;
 }
 
-.profile-menu.open,
-.profile-menu[aria-hidden="false"] {
+.profile-menu.open {
     display: block;
-    opacity: 1;
-    transform: translateY(0) scale(1);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 12px #7d6bb8;
     border: 1px solid #8d79d9;
-    animation: menuFadeIn 0.25s ease-out;
+    animation: menuFadeIn 0.25s ease-out forwards;
 }
 
 @keyframes menuFadeIn {
@@ -297,54 +326,64 @@ a:hover {
         opacity: 0;
         transform: translateY(-12px) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
 }
 
+.profile-menu-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-menu-list li {
+    margin-bottom: 8px;
+}
+
+.profile-menu-list li:last-child {
+    margin-bottom: 0;
+}
+
 .profile-menu a {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 14px 18px;
-    margin: 6px 0;
+    box-sizing: border-box;
     width: 100%;
+    padding: 14px 18px;
     background: #5b4c82;
     border-radius: 12px;
     border: 1px solid #7663b5;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     color: #f1f1f1;
+
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
-    list-style: none;
     transition: all 0.25s ease;
 }
 
 .profile-menu a:hover {
     background: #6c5aa3;
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.45);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.45);
+    border-color: #8d79d9;
 }
 
 .profile-menu a:active {
     transform: scale(0.97);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-.search-select{
-    padding: 5px; 
-    border-radius: 5px; 
-    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .custom-select-wrapper {
     position: relative;
     user-select: none;
-    width: 7rem; 
-    margin-right: 4px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 9rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    z-index: 200;
 }
 
 .custom-select-trigger {
@@ -352,30 +391,41 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 .9rem;
+    padding: 0 1rem;
     font-size: 1rem;
     font-weight: 500;
-    color: #f0ffffde;
-    height: 2.1rem;
-    line-height: 45px;
-    background-color: #514869;
-    border: none;
-    border-radius: 8px; 
+    color: #f1f1f1;
+    height: 2.3rem;
+
+    /* Estilo igual aos botões do perfil */
+    background-color: #5b4c82;
+    border: 1px solid #7663b5;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.custom-select-trigger:hover {
+    background: #6c5aa3;
+    border-color: #8d79d9;
+}
+
+/* SETA */
 .arrow {
     position: relative;
     height: 1rem;
     width: 10px;
+    margin-left: 10px;
 }
+
 .arrow::after {
-    content: ''; 
+    content: '';
     position: absolute;
-    top: 3px; 
+    top: 3px;
     right: 0;
-    border: solid #cccccc;
+    border: solid #e0e0e0;
+    /* Cor da seta mais clara */
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 3px;
@@ -383,114 +433,149 @@ a:hover {
     transition: 0.3s;
 }
 
+/* CAIXA DE OPÇÕES (O DROPDOWN EM SI) */
 .custom-options {
     position: absolute;
     display: block;
-    top: 100%;
+    top: 110%;
+    /* Empurra um pouco para baixo */
     left: 0;
     right: 0;
-    background-color: #514869;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    /* AQUI ESTÁ A MÁGICA: Fundo escuro igual ao menu de perfil */
+    background-color: #2f2841;
+
+    /* Borda roxa igual ao perfil */
+    border: 1px solid #8d79d9;
+    border-radius: 10px;
+
+    /* Sombra inicial */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+
     z-index: 10;
-    
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    
-    margin-top: 10px; 
-    overflow: hidden; 
+
+    padding: 8px;
+    /* Espaço interno para os itens não colarem na borda */
+    margin-top: 5px;
+    overflow: hidden;
 }
 
+/* ESTADO ABERTO (COM O BRILHO/GLOW) */
 .custom-select-wrapper.open .custom-options {
     opacity: 1;
     visibility: visible;
     pointer-events: all;
     transform: translateY(0);
+
+    /* O mesmo Glow Roxo do menu de perfil */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 12px #7d6bb8;
 }
 
+/* Gira a seta quando aberto */
 .custom-select-wrapper.open .arrow::after {
     transform: rotate(-135deg);
-    top: 6px; 
+    top: 6px;
 }
 
- .custom-option {
+/* OPÇÕES INDIVIDUAIS (BOTÕES DENTRO DO SELECT) */
+.custom-option {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 14px 14px;
-    font-size: 16px;
+    padding: 10px 14px;
+    font-size: 15px;
     font-weight: 600;
     color: #f0ffffde;
     cursor: pointer;
-    background-color: #5a5180;
-    margin: 6px 8px;
-    border-radius: 10px;
-    border: 1px solid #6c63a8;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+
+    /* Fundo dos itens igual aos links do perfil */
+    background-color: #5b4c82;
+    margin-bottom: 8px;
+    /* Espaço entre opções */
+    border-radius: 8px;
+    border: 1px solid #7663b5;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
     transition: all 0.25s ease;
 }
 
-.custom-option i {
-    margin-right: 8px; 
-    width: 25px; 
-    text-align: left;
-    color: #bfaee3;
+/* Remove margem do último item */
+.custom-option:last-child {
+    margin-bottom: 0;
 }
 
+i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+    color: #dcd3f5;
+    /* Ícone mais claro */
+}
+
+/* HOVER NAS OPÇÕES */
 .custom-option:hover {
-    background-color: #6d62a3;
+    background-color: #6c5aa3;
     color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.35);
+    border-color: #8d79d9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
 }
 
+/* OPÇÃO SELECIONADA */
 .custom-option.selected {
     background-color: #7e72c9;
+    /* Um roxo mais aceso para indicar seleção */
     border-color: #a28dff;
     color: #ffffff;
-    box-shadow: 0 0 12px rgba(162,141,255,0.6);
+    box-shadow: 0 0 12px rgba(162, 141, 255, 0.6);
 }
 
 .custom-option.selected i {
-    color: #667eea;
+    color: #ffffff;
 }
 
-.genre{
+.genre {
     background-color: #b8a3e5;
     color: #583f8e;
     padding: .6rem;
+    margin: 1rem auto 1.5rem;
     border-radius: .8rem;
     font-weight: 700;
     box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.445);
 }
 
-.author{
+.author {
     font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .header-subtitle {
     text-align: center;
+    font-size: 2rem;
     margin-bottom: 40px;
     color: #77ffc0;
 }
 
 #donate-btn {
-    background-color: #514869;
-    color: #f0ffffde;
+    background-color: #5b4c82;
+    border: 1px solid #7663b5;
+    color: #ffffffde;
     font-size: 15px;
-    padding: 7px 10px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    padding: 7px 20px;
     border-radius: 8px;
-    border: none;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 #donate-btn:hover {
-    background-color: #6a6087;
+    background: #6c5aa3;
+    border-color: #8d79d9;
 }
 
 .book-list {
@@ -557,11 +642,12 @@ a:hover {
 
 
 /* Página de detalhes */
-.book-details-container, .donate-form-container {
+.book-details-container,
+.donate-form-container {
     background: #2f2841;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -620,14 +706,16 @@ a:hover {
     background-color: #77ffc0;
 }
 
-.back-button, .back-button2 {
+.back-button,
+.back-button2 {
     font-size: 16px;
     position: absolute;
     top: 20px;
     left: 20px;
-    padding: 10px 17px;
+    padding: 13px 17px;
     background-color: #2f2841;
     color: #f0ffffde;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -635,15 +723,17 @@ a:hover {
 }
 
 .back-button2 {
-    top: 12.5%;
+    top: 13%;
 }
 
 .back-button:hover {
     background-color: #43395c;
 }
+
 /* Layout Geral - Fundo Roxo Escuro */
 .success-page-body {
-    background-color: #201b2c; /* Fundo Principal */
+    background-color: #201b2c;
+    /* Fundo Principal */
     font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -661,18 +751,21 @@ a:hover {
 
 /* Cabeçalho - Card Roxo Lighter */
 .success-header {
-    background: #2f2841; /* Fundo Secundário */
+    background: #2f2841;
+    /* Fundo Secundário */
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra suave */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Sombra suave */
     margin-bottom: 30px;
-    border: 1px solid #3e3755; /* Borda sutil */
+    border: 1px solid #3e3755;
+    /* Borda sutil */
 }
 
 .icon-check i {
     font-size: 3.5rem;
-    color: #27e88e; 
-    text-shadow: 0 0 10px rgba(31, 201, 122, 0.4); 
+    color: #27e88e;
+    text-shadow: 0 0 10px rgba(31, 201, 122, 0.4);
     margin-bottom: 15px;
 }
 
@@ -687,8 +780,10 @@ a:hover {
 
 /* O Badge do ID (Destaque) */
 .id-badge {
-    background: #251f35; /* Um tom mais escuro que o card para profundidade */
-    border: 2px dashed #77ffc0; /* COR DE ÊNFASE (Borda) */
+    background: #251f35;
+    /* Um tom mais escuro que o card para profundidade */
+    border: 2px dashed #77ffc0;
+    /* COR DE ÊNFASE (Borda) */
     display: inline-block;
     padding: 15px 30px;
     border-radius: 8px;
@@ -698,7 +793,8 @@ a:hover {
 .id-badge span {
     display: block;
     font-size: 0.75rem;
-    color: #77ffc0; /* COR DE ÊNFASE (Texto Label) */
+    color: #77ffc0;
+    /* COR DE ÊNFASE (Texto Label) */
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -715,7 +811,8 @@ a:hover {
 .id-badge small {
     display: block;
     margin-top: 5px;
-    color: #ff7777; /* Vermelho suave para alerta (legível no roxo) */
+    color: #ff7777;
+    /* Vermelho suave para alerta (legível no roxo) */
     font-weight: 600;
 }
 
@@ -731,12 +828,13 @@ a:hover {
 
 /* Estilo dos Cards de Opção */
 .option-card {
-    background: #2f2841; /* Fundo Secundário */
+    background: #2f2841;
+    /* Fundo Secundário */
     flex: 1;
     min-width: 300px;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     text-align: left;
     position: relative;
     border-top: 5px solid #444;
@@ -744,19 +842,31 @@ a:hover {
 }
 
 .option-card:hover {
-    transform: translateY(-5px); /* Leve elevação ao passar o mouse */
+    transform: translateY(-5px);
+    /* Leve elevação ao passar o mouse */
 }
 
 /* Cores específicas das bordas mantidas para diferenciar os métodos */
-.option-card.presencial { border-top-color: #3498db; } 
-.option-card.correios { border-top-color: #f1c40f; }   
+.option-card.presencial {
+    border-top-color: #3498db;
+}
+
+.option-card.correios {
+    border-top-color: #f1c40f;
+}
 
 .card-icon {
     font-size: 2rem;
     margin-bottom: 15px;
 }
-.presencial .card-icon { color: #3498db; }
-.correios .card-icon { color: #f1c40f; }
+
+.presencial .card-icon {
+    color: #3498db;
+}
+
+.correios .card-icon {
+    color: #f1c40f;
+}
 
 .option-card h2 {
     font-size: 1.4rem;
@@ -773,14 +883,16 @@ a:hover {
 /* Blocos de Informação (Endereço, etc) */
 .info-block {
     margin-bottom: 15px;
-    background: #251f35; /* Fundo escuro dentro do card */
+    background: #251f35;
+    /* Fundo escuro dentro do card */
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #3e3755;
 }
 
 .info-block strong {
-    color: #77ffc0; /* COR DE ÊNFASE (Títulos pequenos) */
+    color: #77ffc0;
+    /* COR DE ÊNFASE (Títulos pequenos) */
 }
 
 /* Etiqueta de Correio */
@@ -794,8 +906,19 @@ a:hover {
     margin-bottom: 15px;
     border-radius: 4px;
 }
-.label-dest { font-size: 0.7rem; color: #888; margin-bottom: 5px; }
-.label-cep { font-weight: bold; margin-top: 5px; color: #ddd; /* Ênfase no CEP */ }
+
+.label-dest {
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.label-cep {
+    font-weight: bold;
+    margin-top: 5px;
+    color: #ddd;
+    /* Ênfase no CEP */
+}
 
 .alert-box {
     font-size: 0.85rem;
@@ -810,15 +933,18 @@ a:hover {
     display: flex;
     align-items: center;
     font-weight: bold;
-    color: #77ffc0; /* Ênfase no texto */
-    background: #2f2841; /* Cor do card */
+    color: #77ffc0;
+    /* Ênfase no texto */
+    background: #2f2841;
+    /* Cor do card */
     padding: 10px;
     border-radius: 50%;
     height: 40px;
     width: 40px;
     justify-content: center;
     align-self: center;
-    border: 4px solid #201b2c; /* Borda da cor do FUNDO para "recortar" */
+    border: 4px solid #201b2c;
+    /* Borda da cor do FUNDO para "recortar" */
     z-index: 2;
 }
 
@@ -835,6 +961,7 @@ a:hover {
     transition: all 0.2s;
     background: transparent;
 }
+
 .btn-action.outline:hover {
     background: #3498db;
     color: white;
@@ -848,7 +975,8 @@ a:hover {
     font-weight: 600;
     background-color: #2f2841;
     padding: .8rem 1.2rem;
-    border-radius: 8px; /* Bem arredondado */
+    border-radius: 8px;
+    /* Bem arredondado */
     position: fixed;
     top: 2rem;
     left: 2rem;
@@ -860,20 +988,35 @@ a:hover {
     gap: 8px;
 }
 
-.btn-back-home:hover { 
-    color: #77ffc0; /* Texto fica verde ao passar o mouse */
+.btn-back-home:hover {
+    color: #77ffc0;
+    /* Texto fica verde ao passar o mouse */
     background-color: #38314e;
-    border-color: #77ffc0; /* Borda fica verde */
-    box-shadow: 0 0 15px rgba(119, 255, 192, 0.2); /* Glow suave */
-    transform: scale(1.02); 
+    border-color: #77ffc0;
+    /* Borda fica verde */
+    box-shadow: 0 0 15px rgba(119, 255, 192, 0.2);
+    /* Glow suave */
+    transform: scale(1.02);
 }
 
 .btn-back-home:active {
     transform: scale(0.95);
 }
 
-.book-cover-details{
+.book-cover-details {
     border: 10px solid #000;
+}
+
+/* Altere a cor do seletor para combinar com o fundo do seu input */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #514869 inset !important;
+
+    -webkit-text-fill-color: #ffffff !important;
+
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Responsivo Celular */
@@ -881,9 +1024,11 @@ a:hover {
     .delivery-options-grid {
         flex-direction: column;
     }
+
     .or-divider {
         margin: -10px auto;
-        transform: rotate(90deg); /* Vira o separador se quiser */
+        transform: rotate(90deg);
+        /* Vira o separador se quiser */
     }
 }
 
@@ -899,7 +1044,7 @@ a:hover {
         flex-direction: column;
     }
 
-    .left-side > h1 {
+    .left-side>h1 {
         display: none;
     }
 
@@ -925,7 +1070,7 @@ a:hover {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .header-right {
         flex-direction: column;
         width: 100%;
@@ -940,13 +1085,13 @@ a:hover {
         width: 100%;
     }
 
-    .search-bar button{
-        width: 25%;   
+    .search-bar button {
+        width: 25%;
     }
 }
 
-@media only screen and (max-width: 460px){
-    .logo{
+@media only screen and (max-width: 460px) {
+    .logo {
         font-size: 1.4rem;
     }
 }
@@ -1021,7 +1166,8 @@ a:hover {
         height: auto;
     }
 
-    .left-login, .right-login {
+    .left-login,
+    .right-login {
         width: 100%;
     }
 
@@ -1033,6 +1179,7 @@ a:hover {
         font-size: 1.7rem;
     }
 }
+
 /* Address Page - Updated Styles (Formulário Novo Adaptado) */
 #address-page-view {
     display: flex;
@@ -1045,7 +1192,7 @@ a:hover {
     background-color: #201b2c;
 }
 
-#address-page-view .back-button {
+#view .back-button {
     position: absolute;
     top: 20px;
     left: 20px;

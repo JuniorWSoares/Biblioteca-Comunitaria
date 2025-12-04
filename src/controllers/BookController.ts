@@ -65,7 +65,6 @@ export class BookController {
         page,
         totalPages,
         messages,
-        // Passamos de volta para o EJS preencher os inputs
         searchTerm, 
         searchType  
       })
@@ -82,14 +81,14 @@ export class BookController {
 
       const messages = messagesByCookie(req, res)
 
-      // res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
-      res.json({
+      res.render("homepage", {
         books,
         currentUrl: req.path,
         page,
         totalPages,
         messages,
-        bookName: null,
+        searchTerm: '',
+        searchType: 'titulo'  
       })
     } catch (error) {
       next(error)
@@ -104,14 +103,14 @@ export class BookController {
 
       const messages = messagesByCookie(req, res)
 
-      // res.render("homepage", {books, currentUrl: req.path, page, totalPages, alert, bookName: null})
-      res.json({
+      res.render("homepage", {
         books,
         currentUrl: req.path,
         page,
         totalPages,
         messages,
-        bookName: null,
+        searchTerm: '',
+        searchType: 'titulo'  
       })
     } catch (error) {
       next(error)

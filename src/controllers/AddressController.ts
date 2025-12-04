@@ -6,13 +6,21 @@ import { getUserIdFromToken } from "../utils/getUserIdFromToken.js";
 export class AddressController {
     private addressService = new AddressService()
 
+    address: Handler = async (req, res, next) => {
+        try {
+            res.render("address")
+        } catch (error: any) {
+            next(error)
+        }
+    }
+
     updateAddress: Handler = async (req, res, next) => {
         try {
             const userId = getUserIdFromToken(req)
             const address = AddressSchema.parse(req.body)
             const data = {...address, userId}
-            const updatedAddress = await this.addressService.updateAddress(data)
-            return res.status(200).json(updatedAddress)
+            await this.addressService.updateAddress(data)
+            res.redirect("/")
         } catch (error: any) {
             return res.status(400).json({ error: error.message })
         }

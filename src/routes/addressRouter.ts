@@ -4,7 +4,8 @@ import { addressController } from "./container.js"
 
 const router = express.Router()
 
-router.get("/address", authMiddleware, addressController.getAddress)
-router.put("/address", authMiddleware, addressController.updateAddress)
+router.get("/address", authMiddleware, addressController.address)
+router.get("/my-address", authMiddleware, addressController.getAddress)
+router.post("/my-address", authMiddleware, addressController.updateAddress)
 
 export default router

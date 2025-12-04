@@ -19,22 +19,36 @@
             <div class="header-right">
                 <div class="search-bar">
                     <a href="/auth/logout" class="logout-btn" title="Sair"><img src="/images/sair-cinza.png"></a>
+                    <div class="profile-container">
+                        <div class="profile-icon" id="profileIcon">
+                            <img src="/images/perfil.png" alt="Perfil">
+                        </div>
+
+                        <div class="profile-menu" id="profileMenu">
+                            <nav class="profile-menu-list">
+                                <ul>
+                                    <li>
+                                        <a href="/address">
+                                            <i class="fa-solid fa-house"></i> Atualizar Endereço
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/livros-doados">
+                                            <i class="fa-solid fa-book-open"></i>Ver Livros Doados
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/livros-resgatados">
+                                            <i class="fa-solid fa-book"></i> Ver Livros Resgatados
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                     <a href="/donate" id="donate-btn" class="btn-doar">Doar Livro</a> 
                 </div>
-                <div class="profile-container">
-    <div class="profile-icon" id="profileIcon">
-        <img src="/images/do-utilizador.png" alt="Perfil">
-    </div>
-
-    <div class="profile-menu" id="profileMenu">
-    <nav class="profile-menu-list">
-        <ul>
-            <li><a href="/assets/address.html">Atualizar Endereço</a></li>
-            <li><a href="/livros-doados">Ver Livros Doados</a></li>
-            <li><a href="/livros-resgatados">Ver Livros Resgatados</a></li>
-        </ul>
-        </nav>
-    </div>
+                
                 <form action="/search-for" method="get" class="search-bar">
                     <div class="custom-select-wrapper">
                         <input type="hidden" name="type" id="search-type-input" value="<%= searchType || 'titulo' %>">
@@ -66,11 +80,18 @@
                 </form>
             </div>
         </header>
+            
+        <% if (currentUrl === '/livros-doados') { %>
+            <h2 class="header-subtitle">Livros Doados</h2>
+        <% } else if (currentUrl === '/livros-resgatados') { %>
+            <h2 class="header-subtitle">Livros Resgatados</h2>
+        <% } else { %>
+            <h2 class="header-subtitle">Encontre, resgate ou doe livros na comunidade</h2>
+        <% } %>
 
-        <h2 class="header-subtitle">Encontre, resgate ou doe livros na comunidade</h2>
-
-        <% if (currentUrl === '/search-for') { %>
-            <a href="/" class="back-button2">Voltar</a>
+        
+        <% if (currentUrl !== '/') { %>
+            <a href="/" class="back-button2">&larr; Voltar</a>
         <% } %>
 
         <div id="book-list" class="book-list"></div>
@@ -79,12 +100,9 @@
             <% 
                 let urlBase = '';
 
-                // Lógica inteligente:
-                // Se o usuário digitou algo (searchTerm), a paginação deve manter a pesquisa e o tipo.
                 if (searchTerm) {
                     urlBase = `/search-for?term=${encodeURIComponent(searchTerm)}&type=${encodeURIComponent(searchType)}&page=`;
                 } else {
-                    // Se não tem pesquisa, paginação simples na raiz
                     urlBase = `/?page=`;
                 }
             %>
